@@ -1,0 +1,374 @@
+# ============================================================
+# STAGE 7
+# CYBERSECURITY SHACL VALIDATION RULES
+# ============================================================
+#
+# PURPOSE
+# -------
+# These SHACL shapes validate the cybersecurity Knowledge Graph.
+#
+# We check:
+#
+# 1. Required properties
+# 2. ID patterns
+# 3. Allowed values
+# 4. Datatypes
+# 5. Numeric ranges
+# 6. Relationship cardinality
+# 7. Expected target classes
+#
+# ============================================================
+
+
+@prefix ex:   <http://example.org/cybersecurity/> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+
+# ============================================================
+# 1. THREAT ACTOR SHAPE
+# ============================================================
+
+ex:ThreatActorShape
+    a sh:NodeShape ;
+
+    sh:targetClass ex:ThreatActor ;
+
+
+    # --------------------------------------------------------
+    # actorId is required
+    # --------------------------------------------------------
+
+    sh:property [
+        sh:path ex:actorId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^TA[0-9]{3}$" ;
+        sh:message "Threat Actor ID must follow the format TA001." ;
+    ] ;
+
+
+    # --------------------------------------------------------
+    # actorName is required
+    # --------------------------------------------------------
+
+    sh:property [
+        sh:path ex:actorName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:message "Threat Actor must have exactly one valid name." ;
+    ] ;
+
+
+    # --------------------------------------------------------
+    # actorType is required
+    # --------------------------------------------------------
+
+    sh:property [
+        sh:path ex:actorType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Threat Actor must have exactly one actor type." ;
+    ] ;
+
+
+    # --------------------------------------------------------
+    # primaryMotivation is required
+    # --------------------------------------------------------
+
+    sh:property [
+        sh:path ex:primaryMotivation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Threat Actor must have a primary motivation." ;
+    ] ;
+
+
+    # --------------------------------------------------------
+    # Threat Actor must use at least one malware
+    # --------------------------------------------------------
+
+    sh:property [
+        sh:path ex:usesMalware ;
+        sh:minCount 1 ;
+        sh:class ex:Malware ;
+        sh:message "Threat Actor must be linked to at least one Malware entity." ;
+    ] .
+
+
+# ============================================================
+# 2. MALWARE SHAPE
+# ============================================================
+
+ex:MalwareShape
+    a sh:NodeShape ;
+
+    sh:targetClass ex:Malware ;
+
+
+    sh:property [
+        sh:path ex:malwareId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^MAL[0-9]{3}$" ;
+        sh:message "Malware ID must follow the format MAL001." ;
+    ] ;
+
+
+    sh:property [
+        sh:path ex:malwareName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:message "Malware must have exactly one malware name." ;
+    ] ;
+
+
+    sh:property [
+        sh:path ex:malwareType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Malware must have a malware type." ;
+    ] ;
+
+
+    # Malware must exploit at least one vulnerability.
+
+    sh:property [
+        sh:path ex:exploits ;
+        sh:minCount 1 ;
+        sh:class ex:Vulnerability ;
+        sh:message "Malware must exploit at least one Vulnerability." ;
+    ] ;
+
+
+    # Malware must communicate with at least one domain.
+
+    sh:property [
+        sh:path ex:communicatesWith ;
+        sh:minCount 1 ;
+        sh:class ex:Domain ;
+        sh:message "Malware must communicate with at least one Domain." ;
+    ] .
+
+
+# ============================================================
+# 3. VULNERABILITY SHAPE
+# ============================================================
+
+ex:VulnerabilityShape
+    a sh:NodeShape ;
+
+    sh:targetClass ex:Vulnerability ;
+
+
+    sh:property [
+        sh:path ex:cveId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^CVE-[0-9]{4}-[0-9]{4,}$" ;
+        sh:message "CVE ID must follow the format CVE-YYYY-NNNN." ;
+    ] ;
+
+
+    # Severity must be one of these values.
+
+    sh:property [
+        sh:path ex:severity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in (
+            "Low"
+            "Medium"
+            "High"
+            "Critical"
+        ) ;
+        sh:message "Severity must be Low, Medium, High, or Critical." ;
+    ] ;
+
+
+    # CVSS scores must be between 0.0 and 10.0.
+
+    sh:property [
+        sh:path ex:cvssScore ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0.0 ;
+        sh:maxInclusive 10.0 ;
+        sh:message "CVSS score must be between 0.0 and 10.0." ;
+    ] ;
+
+
+    sh:property [
+        sh:path ex:vulnerabilityType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Vulnerability must have a vulnerability type." ;
+    ] .
+
+
+# ============================================================
+# 4. CAMPAIGN SHAPE
+# ============================================================
+
+ex:CampaignShape
+    a sh:NodeShape ;
+
+    sh:targetClass ex:Campaign ;
+
+
+    sh:property [
+        sh:path ex:campaignId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^CAM[0-9]{3}$" ;
+        sh:message "Campaign ID must follow the format CAM001." ;
+    ] ;
+
+
+    sh:property [
+        sh:path ex:campaignName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Campaign must have exactly one campaign name." ;
+    ] ;
+
+
+    sh:property [
+        sh:path ex:attackVector ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Campaign must have an attack vector." ;
+    ] ;
+
+
+    # Every campaign must target at least one organization.
+
+    sh:property [
+        sh:path ex:targets ;
+        sh:minCount 1 ;
+        sh:class ex:Organization ;
+        sh:message "Campaign must target at least one Organization." ;
+    ] .
+
+
+# ============================================================
+# 5. ORGANIZATION SHAPE
+# ============================================================
+
+ex:OrganizationShape
+    a sh:NodeShape ;
+
+    sh:targetClass ex:Organization ;
+
+
+    sh:property [
+        sh:path ex:organizationId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^ORG[0-9]{3}$" ;
+        sh:message "Organization ID must follow the format ORG001." ;
+    ] ;
+
+
+    sh:property [
+        sh:path ex:organizationName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Organization must have exactly one organization name." ;
+    ] ;
+
+
+    sh:property [
+        sh:path ex:industry ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Organization must have exactly one industry." ;
+    ] .
+
+
+# ============================================================
+# 6. DOMAIN SHAPE
+# ============================================================
+
+ex:DomainShape
+    a sh:NodeShape ;
+
+    sh:targetClass ex:Domain ;
+
+
+    sh:property [
+        sh:path ex:domainId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^DOM[0-9]{3}$" ;
+        sh:message "Domain ID must follow the format DOM001." ;
+    ] ;
+
+
+    sh:property [
+        sh:path ex:domainName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Domain must contain a domain name." ;
+    ] ;
+
+
+    # Domain should resolve to at least one IP address.
+
+    sh:property [
+        sh:path ex:resolvesTo ;
+        sh:minCount 1 ;
+        sh:class ex:IPAddress ;
+        sh:message "Domain must resolve to at least one IP Address." ;
+    ] .
+
+
+# ============================================================
+# 7. IP ADDRESS SHAPE
+# ============================================================
+
+ex:IPAddressShape
+    a sh:NodeShape ;
+
+    sh:targetClass ex:IPAddress ;
+
+
+    sh:property [
+        sh:path ex:ipId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^IP[0-9]{3}$" ;
+        sh:message "IP ID must follow the format IP001." ;
+    ] ;
+
+
+    sh:property [
+        sh:path ex:ipAddress ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "IP Address entity must contain an IP address value." ;
+    ] .

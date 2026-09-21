@@ -1,0 +1,11 @@
+incoming_id,incoming_name,entity_type
+INC001,APT29,ThreatActor
+INC002,APT 29,ThreatActor
+INC003,Shadow-Spider,ThreatActor
+INC004,CrimsonFox,ThreatActor
+INC005,Blue Falcon,ThreatActor
+INC006,Solar Drop,Malware
+INC007,black-crypt,Malware
+INC008,Credential Fox,Malware
+INC009,Silent Loader,Malware
+INC010,NightCrawler,Malware

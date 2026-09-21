@@ -1,0 +1,6 @@
+cve_id,severity,cvss_score,vulnerability_type
+CVE-2026-1001,Critical,9.8,Remote Code Execution
+CVE-2026-1002,High,8.1,Privilege Escalation
+CVE-2026-1003,Critical,9.5,Authentication Bypass
+CVE-2026-1004,Medium,6.5,Information Disclosure
+CVE-2026-1005,High,8.8,Remote Code Execution

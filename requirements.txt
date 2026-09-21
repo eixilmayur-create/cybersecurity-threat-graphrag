@@ -1,0 +1,13 @@
+pandas
+numpy
+rdflib
+pyshacl
+python-dotenv
+requests
+google-genai
+scikit-learn
+networkx
+sentence-transformers
+pydantic
+python-dotenv
+fastapi[standard]

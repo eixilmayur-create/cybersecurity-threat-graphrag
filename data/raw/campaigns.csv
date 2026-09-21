@@ -1,0 +1,5 @@
+campaign_id,campaign_name,attack_vector
+CAM001,Operation Nightfall,Phishing
+CAM002,Operation Black Ice,Ransomware
+CAM003,Operation Silent Web,Credential Theft
+CAM004,Operation Red Cloud,Espionage

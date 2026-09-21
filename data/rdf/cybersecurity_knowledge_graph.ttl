@@ -1,0 +1,393 @@
+@prefix ex: <http://example.org/cybersecurity/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:CybersecurityOntology a owl:Ontology ;
+    rdfs:label "Cybersecurity Threat Intelligence Ontology" ;
+    rdfs:comment "Ontology for representing cybersecurity threat actors, malware, vulnerabilities, campaigns, organizations, domains, and IP infrastructure." .
+
+ex:TA001 a ex:ThreatActor ;
+    ex:actorId "TA001" ;
+    ex:actorName "APT-29" ;
+    ex:actorType "State-Sponsored" ;
+    ex:attributedToCampaign ex:CAM001 ;
+    ex:primaryMotivation "Credential Theft" ;
+    ex:usesMalware ex:MAL001 .
+
+ex:TA002 a ex:ThreatActor ;
+    ex:actorId "TA002" ;
+    ex:actorName "Shadow Spider" ;
+    ex:actorType "Cybercrime" ;
+    ex:attributedToCampaign ex:CAM002 ;
+    ex:primaryMotivation "Ransomware" ;
+    ex:usesMalware ex:MAL002 .
+
+ex:TA003 a ex:ThreatActor ;
+    ex:actorId "TA003" ;
+    ex:actorName "Crimson Fox" ;
+    ex:actorType "Cybercrime" ;
+    ex:attributedToCampaign ex:CAM003 ;
+    ex:primaryMotivation "Financial Theft" ;
+    ex:usesMalware ex:MAL003 .
+
+ex:TA004 a ex:ThreatActor ;
+    ex:actorId "TA004" ;
+    ex:actorName "Silent Raven" ;
+    ex:actorType "Espionage" ;
+    ex:attributedToCampaign ex:CAM004 ;
+    ex:primaryMotivation "Data Exfiltration" ;
+    ex:usesMalware ex:MAL004 .
+
+ex:TA005 a ex:ThreatActor ;
+    ex:actorId "TA005" ;
+    ex:actorName "Dark Hydra" ;
+    ex:actorType "Cybercrime" ;
+    ex:primaryMotivation "Credential Theft" ;
+    ex:usesMalware ex:MAL005 .
+
+ex:actorId a owl:DatatypeProperty ;
+    rdfs:label "actor ID" ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range xsd:string .
+
+ex:actorName a owl:DatatypeProperty ;
+    rdfs:label "actor name" ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range xsd:string .
+
+ex:actorType a owl:DatatypeProperty ;
+    rdfs:label "actor type" ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range xsd:string .
+
+ex:attackVector a owl:DatatypeProperty ;
+    rdfs:label "attack vector" ;
+    rdfs:domain ex:Campaign ;
+    rdfs:range xsd:string .
+
+ex:attributedToCampaign a owl:ObjectProperty ;
+    rdfs:label "attributed to campaign" ;
+    rdfs:comment "Links a threat actor to a campaign associated with that actor." ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range ex:Campaign .
+
+ex:campaignId a owl:DatatypeProperty ;
+    rdfs:label "campaign ID" ;
+    rdfs:domain ex:Campaign ;
+    rdfs:range xsd:string .
+
+ex:campaignName a owl:DatatypeProperty ;
+    rdfs:label "campaign name" ;
+    rdfs:domain ex:Campaign ;
+    rdfs:range xsd:string .
+
+ex:communicatesWith a owl:ObjectProperty ;
+    rdfs:label "communicates with" ;
+    rdfs:comment "Links malware to a domain used for communication." ;
+    rdfs:domain ex:Malware ;
+    rdfs:range ex:Domain .
+
+ex:cveId a owl:DatatypeProperty ;
+    rdfs:label "CVE ID" ;
+    rdfs:domain ex:Vulnerability ;
+    rdfs:range xsd:string .
+
+ex:cvssScore a owl:DatatypeProperty ;
+    rdfs:label "CVSS score" ;
+    rdfs:domain ex:Vulnerability ;
+    rdfs:range xsd:decimal .
+
+ex:domainId a owl:DatatypeProperty ;
+    rdfs:label "domain ID" ;
+    rdfs:domain ex:Domain ;
+    rdfs:range xsd:string .
+
+ex:domainName a owl:DatatypeProperty ;
+    rdfs:label "domain name" ;
+    rdfs:domain ex:Domain ;
+    rdfs:range xsd:string .
+
+ex:exploits a owl:ObjectProperty ;
+    rdfs:label "exploits" ;
+    rdfs:comment "Links malware to a vulnerability it exploits." ;
+    rdfs:domain ex:Malware ;
+    rdfs:range ex:Vulnerability .
+
+ex:industry a owl:DatatypeProperty ;
+    rdfs:label "industry" ;
+    rdfs:domain ex:Organization ;
+    rdfs:range xsd:string .
+
+ex:ipAddress a owl:DatatypeProperty ;
+    rdfs:label "IP address" ;
+    rdfs:domain ex:IPAddress ;
+    rdfs:range xsd:string .
+
+ex:ipId a owl:DatatypeProperty ;
+    rdfs:label "IP ID" ;
+    rdfs:domain ex:IPAddress ;
+    rdfs:range xsd:string .
+
+ex:malwareId a owl:DatatypeProperty ;
+    rdfs:label "malware ID" ;
+    rdfs:domain ex:Malware ;
+    rdfs:range xsd:string .
+
+ex:malwareName a owl:DatatypeProperty ;
+    rdfs:label "malware name" ;
+    rdfs:domain ex:Malware ;
+    rdfs:range xsd:string .
+
+ex:malwareType a owl:DatatypeProperty ;
+    rdfs:label "malware type" ;
+    rdfs:domain ex:Malware ;
+    rdfs:range xsd:string .
+
+ex:organizationId a owl:DatatypeProperty ;
+    rdfs:label "organization ID" ;
+    rdfs:domain ex:Organization ;
+    rdfs:range xsd:string .
+
+ex:organizationName a owl:DatatypeProperty ;
+    rdfs:label "organization name" ;
+    rdfs:domain ex:Organization ;
+    rdfs:range xsd:string .
+
+ex:primaryMotivation a owl:DatatypeProperty ;
+    rdfs:label "primary motivation" ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range xsd:string .
+
+ex:resolvesTo a owl:ObjectProperty ;
+    rdfs:label "resolves to" ;
+    rdfs:comment "Links a domain to an IP address." ;
+    rdfs:domain ex:Domain ;
+    rdfs:range ex:IPAddress .
+
+ex:severity a owl:DatatypeProperty ;
+    rdfs:label "severity" ;
+    rdfs:domain ex:Vulnerability ;
+    rdfs:range xsd:string .
+
+ex:targets a owl:ObjectProperty ;
+    rdfs:label "targets" ;
+    rdfs:comment "Links a cyber campaign to an organization it targets." ;
+    rdfs:domain ex:Campaign ;
+    rdfs:range ex:Organization .
+
+ex:usesMalware a owl:ObjectProperty ;
+    rdfs:label "uses malware" ;
+    rdfs:comment "Links a threat actor to malware associated with that actor." ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range ex:Malware .
+
+ex:vulnerabilityType a owl:DatatypeProperty ;
+    rdfs:label "vulnerability type" ;
+    rdfs:domain ex:Vulnerability ;
+    rdfs:range xsd:string .
+
+ex:CAM001 a ex:Campaign ;
+    ex:attackVector "Phishing" ;
+    ex:campaignId "CAM001" ;
+    ex:campaignName "Operation Nightfall" ;
+    ex:targets ex:ORG001,
+        ex:ORG005 .
+
+ex:CAM002 a ex:Campaign ;
+    ex:attackVector "Ransomware" ;
+    ex:campaignId "CAM002" ;
+    ex:campaignName "Operation Black Ice" ;
+    ex:targets ex:ORG002 .
+
+ex:CAM003 a ex:Campaign ;
+    ex:attackVector "Credential Theft" ;
+    ex:campaignId "CAM003" ;
+    ex:campaignName "Operation Silent Web" ;
+    ex:targets ex:ORG003 .
+
+ex:CAM004 a ex:Campaign ;
+    ex:attackVector "Espionage" ;
+    ex:campaignId "CAM004" ;
+    ex:campaignName "Operation Red Cloud" ;
+    ex:targets ex:ORG004 .
+
+ex:CVE-2026-1001 a ex:Vulnerability ;
+    ex:cveId "CVE-2026-1001" ;
+    ex:cvssScore 9.8 ;
+    ex:severity "Critical" ;
+    ex:vulnerabilityType "Remote Code Execution" .
+
+ex:CVE-2026-1002 a ex:Vulnerability ;
+    ex:cveId "CVE-2026-1002" ;
+    ex:cvssScore 8.1 ;
+    ex:severity "High" ;
+    ex:vulnerabilityType "Privilege Escalation" .
+
+ex:CVE-2026-1003 a ex:Vulnerability ;
+    ex:cveId "CVE-2026-1003" ;
+    ex:cvssScore 9.5 ;
+    ex:severity "Critical" ;
+    ex:vulnerabilityType "Authentication Bypass" .
+
+ex:CVE-2026-1004 a ex:Vulnerability ;
+    ex:cveId "CVE-2026-1004" ;
+    ex:cvssScore 6.5 ;
+    ex:severity "Medium" ;
+    ex:vulnerabilityType "Information Disclosure" .
+
+ex:CVE-2026-1005 a ex:Vulnerability ;
+    ex:cveId "CVE-2026-1005" ;
+    ex:cvssScore 8.8 ;
+    ex:severity "High" ;
+    ex:vulnerabilityType "Remote Code Execution" .
+
+ex:DOM001 a ex:Domain ;
+    ex:domainId "DOM001" ;
+    ex:domainName "secure-update-example.com" ;
+    ex:resolvesTo ex:IP001 .
+
+ex:DOM002 a ex:Domain ;
+    ex:domainId "DOM002" ;
+    ex:domainName "cloud-login-example.net" ;
+    ex:resolvesTo ex:IP002 .
+
+ex:DOM003 a ex:Domain ;
+    ex:domainId "DOM003" ;
+    ex:domainName "payment-check-example.org" ;
+    ex:resolvesTo ex:IP003 .
+
+ex:DOM004 a ex:Domain ;
+    ex:domainId "DOM004" ;
+    ex:domainName "mail-auth-example.net" ;
+    ex:resolvesTo ex:IP004 .
+
+ex:DOM005 a ex:Domain ;
+    ex:domainId "DOM005" ;
+    ex:domainName "software-update-example.org" ;
+    ex:resolvesTo ex:IP005 .
+
+ex:IP001 a ex:IPAddress ;
+    ex:ipAddress "192.0.2.10" ;
+    ex:ipId "IP001" .
+
+ex:IP002 a ex:IPAddress ;
+    ex:ipAddress "192.0.2.20" ;
+    ex:ipId "IP002" .
+
+ex:IP003 a ex:IPAddress ;
+    ex:ipAddress "198.51.100.30" ;
+    ex:ipId "IP003" .
+
+ex:IP004 a ex:IPAddress ;
+    ex:ipAddress "198.51.100.40" ;
+    ex:ipId "IP004" .
+
+ex:IP005 a ex:IPAddress ;
+    ex:ipAddress "203.0.113.50" ;
+    ex:ipId "IP005" .
+
+ex:MAL001 a ex:Malware ;
+    ex:communicatesWith ex:DOM001 ;
+    ex:exploits ex:CVE-2026-1001 ;
+    ex:malwareId "MAL001" ;
+    ex:malwareName "SolarDrop" ;
+    ex:malwareType "Backdoor" .
+
+ex:MAL002 a ex:Malware ;
+    ex:communicatesWith ex:DOM002 ;
+    ex:exploits ex:CVE-2026-1002 ;
+    ex:malwareId "MAL002" ;
+    ex:malwareName "BlackCrypt" ;
+    ex:malwareType "Ransomware" .
+
+ex:MAL003 a ex:Malware ;
+    ex:communicatesWith ex:DOM003 ;
+    ex:exploits ex:CVE-2026-1003 ;
+    ex:malwareId "MAL003" ;
+    ex:malwareName "CredentialFox" ;
+    ex:malwareType "Credential Stealer" .
+
+ex:MAL004 a ex:Malware ;
+    ex:communicatesWith ex:DOM004 ;
+    ex:exploits ex:CVE-2026-1004 ;
+    ex:malwareId "MAL004" ;
+    ex:malwareName "SilentLoader" ;
+    ex:malwareType "Loader" .
+
+ex:MAL005 a ex:Malware ;
+    ex:communicatesWith ex:DOM005 ;
+    ex:exploits ex:CVE-2026-1005 ;
+    ex:malwareId "MAL005" ;
+    ex:malwareName "HydraBot" ;
+    ex:malwareType "Botnet" .
+
+ex:ORG001 a ex:Organization ;
+    ex:industry "Banking" ;
+    ex:organizationId "ORG001" ;
+    ex:organizationName "FinBank Ltd" .
+
+ex:ORG002 a ex:Organization ;
+    ex:industry "Healthcare" ;
+    ex:organizationId "ORG002" ;
+    ex:organizationName "HealthSecure" .
+
+ex:ORG003 a ex:Organization ;
+    ex:industry "Retail" ;
+    ex:organizationId "ORG003" ;
+    ex:organizationName "CloudRetail" .
+
+ex:ORG004 a ex:Organization ;
+    ex:industry "Technology" ;
+    ex:organizationId "ORG004" ;
+    ex:organizationName "TechNova" .
+
+ex:ORG005 a ex:Organization ;
+    ex:industry "FinTech" ;
+    ex:organizationId "ORG005" ;
+    ex:organizationName "PaySphere" .
+
+ex:Infrastructure a owl:Class ;
+    rdfs:label "Infrastructure" ;
+    rdfs:comment "Infrastructure used or observed in cybersecurity activity." ;
+    rdfs:subClassOf ex:CyberThreatEntity .
+
+ex:CyberThreatEntity a owl:Class ;
+    rdfs:label "Cyber Threat Entity" ;
+    rdfs:comment "General superclass for cybersecurity-related entities." .
+
+ex:IPAddress a owl:Class ;
+    rdfs:label "IP Address" ;
+    rdfs:comment "An IP address observed in cybersecurity infrastructure." ;
+    rdfs:subClassOf ex:Infrastructure .
+
+ex:Campaign a owl:Class ;
+    rdfs:label "Campaign" ;
+    rdfs:comment "A coordinated set of cyber activities associated with a particular objective." ;
+    rdfs:subClassOf ex:CyberThreatEntity .
+
+ex:Domain a owl:Class ;
+    rdfs:label "Domain" ;
+    rdfs:comment "A domain name observed in cybersecurity infrastructure." ;
+    rdfs:subClassOf ex:Infrastructure .
+
+ex:Organization a owl:Class ;
+    rdfs:label "Organization" ;
+    rdfs:comment "An organization that may be targeted or otherwise involved in cybersecurity activity." ;
+    rdfs:subClassOf ex:CyberThreatEntity .
+
+ex:Vulnerability a owl:Class ;
+    rdfs:label "Vulnerability" ;
+    rdfs:comment "A weakness that may be exploited by malicious software or threat actors." ;
+    rdfs:subClassOf ex:CyberThreatEntity .
+
+ex:Malware a owl:Class ;
+    rdfs:label "Malware" ;
+    rdfs:comment "Malicious software used during cyber operations." ;
+    rdfs:subClassOf ex:CyberThreatEntity .
+
+ex:ThreatActor a owl:Class ;
+    rdfs:label "Threat Actor" ;
+    rdfs:comment "An individual or group responsible for malicious cyber activity." ;
+    rdfs:subClassOf ex:CyberThreatEntity .
+

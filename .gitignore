@@ -1,0 +1,32 @@
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables and secrets
+.env
+
+# IDE configuration
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Generated outputs
+outputs/
+
+# Temporary files
+*.log
+# Local secrets, credentials and backups
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+service-account*.json
+src/gemini_fix_backup/
+*.bak
+.pytest_cache/

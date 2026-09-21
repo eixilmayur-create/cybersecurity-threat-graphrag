@@ -1,0 +1,6 @@
+actor_id,actor_name,actor_type,primary_motivation
+TA001,APT-29,State-Sponsored,Credential Theft
+TA002,Shadow Spider,Cybercrime,Ransomware
+TA003,Crimson Fox,Cybercrime,Financial Theft
+TA004,Silent Raven,Espionage,Data Exfiltration
+TA005,Dark Hydra,Cybercrime,Credential Theft

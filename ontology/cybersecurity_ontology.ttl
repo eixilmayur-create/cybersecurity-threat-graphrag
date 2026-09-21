@@ -1,0 +1,348 @@
+# ============================================================
+# CYBERSECURITY THREAT INTELLIGENCE ONTOLOGY
+# ============================================================
+#
+# PURPOSE
+# -------
+# This ontology defines the semantic structure for our
+# Cybersecurity Threat Intelligence Knowledge Graph.
+#
+# It contains:
+#
+# 1. Core classes
+# 2. Class hierarchy
+# 3. Datatype properties
+# 4. Object properties
+# 5. Domain / range definitions
+#
+# ============================================================
+
+
+# ------------------------------------------------------------
+# PREFIXES
+# ------------------------------------------------------------
+
+@prefix ex:   <http://example.org/cybersecurity/> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+
+# ============================================================
+# ONTOLOGY DEFINITION
+# ============================================================
+
+ex:CybersecurityOntology
+    rdf:type owl:Ontology ;
+    rdfs:label "Cybersecurity Threat Intelligence Ontology" ;
+    rdfs:comment "Ontology for representing cybersecurity threat actors, malware, vulnerabilities, campaigns, organizations, domains, and IP infrastructure." .
+
+
+# ============================================================
+# 1. TOP-LEVEL CLASSES
+# ============================================================
+
+ex:CyberThreatEntity
+    rdf:type owl:Class ;
+    rdfs:label "Cyber Threat Entity" ;
+    rdfs:comment "General superclass for cybersecurity-related entities." .
+
+
+ex:Infrastructure
+    rdf:type owl:Class ;
+    rdfs:subClassOf ex:CyberThreatEntity ;
+    rdfs:label "Infrastructure" ;
+    rdfs:comment "Infrastructure used or observed in cybersecurity activity." .
+
+
+# ============================================================
+# 2. CORE CYBERSECURITY CLASSES
+# ============================================================
+
+ex:ThreatActor
+    rdf:type owl:Class ;
+    rdfs:subClassOf ex:CyberThreatEntity ;
+    rdfs:label "Threat Actor" ;
+    rdfs:comment "An individual or group responsible for malicious cyber activity." .
+
+
+ex:Malware
+    rdf:type owl:Class ;
+    rdfs:subClassOf ex:CyberThreatEntity ;
+    rdfs:label "Malware" ;
+    rdfs:comment "Malicious software used during cyber operations." .
+
+
+ex:Vulnerability
+    rdf:type owl:Class ;
+    rdfs:subClassOf ex:CyberThreatEntity ;
+    rdfs:label "Vulnerability" ;
+    rdfs:comment "A weakness that may be exploited by malicious software or threat actors." .
+
+
+ex:Campaign
+    rdf:type owl:Class ;
+    rdfs:subClassOf ex:CyberThreatEntity ;
+    rdfs:label "Campaign" ;
+    rdfs:comment "A coordinated set of cyber activities associated with a particular objective." .
+
+
+ex:Organization
+    rdf:type owl:Class ;
+    rdfs:subClassOf ex:CyberThreatEntity ;
+    rdfs:label "Organization" ;
+    rdfs:comment "An organization that may be targeted or otherwise involved in cybersecurity activity." .
+
+
+ex:Domain
+    rdf:type owl:Class ;
+    rdfs:subClassOf ex:Infrastructure ;
+    rdfs:label "Domain" ;
+    rdfs:comment "A domain name observed in cybersecurity infrastructure." .
+
+
+ex:IPAddress
+    rdf:type owl:Class ;
+    rdfs:subClassOf ex:Infrastructure ;
+    rdfs:label "IP Address" ;
+    rdfs:comment "An IP address observed in cybersecurity infrastructure." .
+
+
+# ============================================================
+# 3. DATATYPE PROPERTIES — THREAT ACTOR
+# ============================================================
+
+ex:actorId
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range xsd:string ;
+    rdfs:label "actor ID" .
+
+
+ex:actorName
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range xsd:string ;
+    rdfs:label "actor name" .
+
+
+ex:actorType
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range xsd:string ;
+    rdfs:label "actor type" .
+
+
+ex:primaryMotivation
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range xsd:string ;
+    rdfs:label "primary motivation" .
+
+
+# ============================================================
+# 4. DATATYPE PROPERTIES — MALWARE
+# ============================================================
+
+ex:malwareId
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Malware ;
+    rdfs:range xsd:string ;
+    rdfs:label "malware ID" .
+
+
+ex:malwareName
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Malware ;
+    rdfs:range xsd:string ;
+    rdfs:label "malware name" .
+
+
+ex:malwareType
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Malware ;
+    rdfs:range xsd:string ;
+    rdfs:label "malware type" .
+
+
+# ============================================================
+# 5. DATATYPE PROPERTIES — VULNERABILITY
+# ============================================================
+
+ex:cveId
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Vulnerability ;
+    rdfs:range xsd:string ;
+    rdfs:label "CVE ID" .
+
+
+ex:severity
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Vulnerability ;
+    rdfs:range xsd:string ;
+    rdfs:label "severity" .
+
+
+ex:cvssScore
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Vulnerability ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "CVSS score" .
+
+
+ex:vulnerabilityType
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Vulnerability ;
+    rdfs:range xsd:string ;
+    rdfs:label "vulnerability type" .
+
+
+# ============================================================
+# 6. DATATYPE PROPERTIES — CAMPAIGN
+# ============================================================
+
+ex:campaignId
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Campaign ;
+    rdfs:range xsd:string ;
+    rdfs:label "campaign ID" .
+
+
+ex:campaignName
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Campaign ;
+    rdfs:range xsd:string ;
+    rdfs:label "campaign name" .
+
+
+ex:attackVector
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Campaign ;
+    rdfs:range xsd:string ;
+    rdfs:label "attack vector" .
+
+
+# ============================================================
+# 7. DATATYPE PROPERTIES — ORGANIZATION
+# ============================================================
+
+ex:organizationId
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Organization ;
+    rdfs:range xsd:string ;
+    rdfs:label "organization ID" .
+
+
+ex:organizationName
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Organization ;
+    rdfs:range xsd:string ;
+    rdfs:label "organization name" .
+
+
+ex:industry
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Organization ;
+    rdfs:range xsd:string ;
+    rdfs:label "industry" .
+
+
+# ============================================================
+# 8. DATATYPE PROPERTIES — DOMAIN
+# ============================================================
+
+ex:domainId
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Domain ;
+    rdfs:range xsd:string ;
+    rdfs:label "domain ID" .
+
+
+ex:domainName
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Domain ;
+    rdfs:range xsd:string ;
+    rdfs:label "domain name" .
+
+
+# ============================================================
+# 9. DATATYPE PROPERTIES — IP ADDRESS
+# ============================================================
+
+ex:ipId
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:IPAddress ;
+    rdfs:range xsd:string ;
+    rdfs:label "IP ID" .
+
+
+ex:ipAddress
+    rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:IPAddress ;
+    rdfs:range xsd:string ;
+    rdfs:label "IP address" .
+
+
+# ============================================================
+# 10. OBJECT PROPERTIES
+# ============================================================
+
+# ThreatActor -> Malware
+
+ex:usesMalware
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range ex:Malware ;
+    rdfs:label "uses malware" ;
+    rdfs:comment "Links a threat actor to malware associated with that actor." .
+
+
+# Malware -> Vulnerability
+
+ex:exploits
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:Malware ;
+    rdfs:range ex:Vulnerability ;
+    rdfs:label "exploits" ;
+    rdfs:comment "Links malware to a vulnerability it exploits." .
+
+
+# ThreatActor -> Campaign
+
+ex:attributedToCampaign
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:ThreatActor ;
+    rdfs:range ex:Campaign ;
+    rdfs:label "attributed to campaign" ;
+    rdfs:comment "Links a threat actor to a campaign associated with that actor." .
+
+
+# Campaign -> Organization
+
+ex:targets
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:Campaign ;
+    rdfs:range ex:Organization ;
+    rdfs:label "targets" ;
+    rdfs:comment "Links a cyber campaign to an organization it targets." .
+
+
+# Malware -> Domain
+
+ex:communicatesWith
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:Malware ;
+    rdfs:range ex:Domain ;
+    rdfs:label "communicates with" ;
+    rdfs:comment "Links malware to a domain used for communication." .
+
+
+# Domain -> IPAddress
+
+ex:resolvesTo
+    rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:Domain ;
+    rdfs:range ex:IPAddress ;
+    rdfs:label "resolves to" ;
+    rdfs:comment "Links a domain to an IP address." .

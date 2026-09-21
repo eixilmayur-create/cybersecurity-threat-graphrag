@@ -1,0 +1,60 @@
+PREFIX ex: <http://example.org/cybersecurity/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+
+SELECT
+    ?actorName
+    ?malwareName
+    ?cve
+    ?cvss
+    ?domainName
+    ?ipAddress
+    ?campaignName
+    ?organizationName
+
+WHERE {
+
+    ?actor rdf:type ex:ThreatActor .
+
+    ?actor ex:actorName ?actorName .
+
+
+    # Threat actor -> Malware
+
+    ?actor ex:usesMalware ?malware .
+
+    ?malware ex:malwareName ?malwareName .
+
+
+    # Malware -> Vulnerability
+
+    ?malware ex:exploits ?vulnerability .
+
+    ?vulnerability ex:cveId ?cve .
+
+    ?vulnerability ex:cvssScore ?cvss .
+
+
+    # Malware -> Infrastructure
+
+    ?malware ex:communicatesWith ?domain .
+
+    ?domain ex:domainName ?domainName .
+
+    ?domain ex:resolvesTo ?ip .
+
+    ?ip ex:ipAddress ?ipAddress .
+
+
+    # Threat Actor -> Campaign -> Organization
+
+    ?actor ex:attributedToCampaign ?campaign .
+
+    ?campaign ex:campaignName ?campaignName .
+
+    ?campaign ex:targets ?organization .
+
+    ?organization ex:organizationName ?organizationName .
+}
+
+ORDER BY DESC(?cvss)
